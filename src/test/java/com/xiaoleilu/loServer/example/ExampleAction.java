@@ -1,10 +1,10 @@
 package com.xiaoleilu.loServer.example;
 
 import com.xiaoleilu.loServer.LoServer;
-import com.xiaoleilu.loServer.Request;
-import com.xiaoleilu.loServer.Response;
 import com.xiaoleilu.loServer.ServerSetting;
 import com.xiaoleilu.loServer.action.Action;
+import com.xiaoleilu.loServer.handler.Request;
+import com.xiaoleilu.loServer.handler.Response;
 
 /**
  * loServer样例程序<br>
@@ -22,10 +22,12 @@ public class ExampleAction implements Action{
 	public void doAction(Request request, Response response) {
 		String a = request.getParam("a");
 		response.setContent("response a: " + a);
+		throw new RuntimeException("Test");
 	}
 
 	public static void main(String[] args) {
-		ServerSetting.addAction("/example", ExampleAction.class);
+		ServerSetting.setAction("/example", ExampleAction.class);
+		ServerSetting.setRoot("root");
 		ServerSetting.setPort(8090);
 		LoServer.start();
 	}
